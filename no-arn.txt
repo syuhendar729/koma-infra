@@ -1,0 +1,9 @@
+arn:aws:iam::284874841097:role/koma-verifier-lambda
+https://koma-verifier.lambda-url.ap-southeast-2.on.aws/
+
+{
+    "FunctionUrl": "https://i6dc43zhkloha7dxftwwkuowim0ekzce.lambda-url.ap-southeast-2.on.aws/",
+    "FunctionArn": "arn:aws:lambda:ap-southeast-2:284874841097:function:koma-verifier",
+    "AuthType": "NONE",
+    "CreationTime": "2026-11-10T04:12:39.037568053Z"
+}
