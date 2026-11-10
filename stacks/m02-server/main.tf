@@ -22,13 +22,95 @@ data "aws_vpc" "bawaan" {
   default = true
 }
 
-# TODO B.1  aws_instance.pembangun  : AMI publik + user_data = local.cloud_init,
-#           user_data_replace_on_change = true, tanpa IP publik, tag peran/versi
-# TODO B.2  time_sleep.tunggu_cloud_init : jeda var.tunggu_cloud_init, triggers = id pembangun
-# TODO B.3  aws_ami_from_instance.api : nama "${local.awalan}-api-${var.versi}"
+data "aws_availability_zones" "tersedia" {
+  state = "available"
+}
 
-# TODO C.1  aws_security_group.api + aws_vpc_security_group_ingress_rule.http_saya
-#           (port 80 hanya dari var.cidr_saya)
-# TODO C.2  aws_instance.api : dari AMI sendiri, IP publik, SG api, tag peran/versi
+data "aws_subnet" "bawaan" {
+  default_for_az    = true
+  availability_zone = data.aws_availability_zones.tersedia.names[0]
+}
 
-# Latihan 2.1: aws_instance.goreng (count = var.bandingkan_goreng ? 1 : 0)
+resource "aws_instance" "pembangun" {
+  ami                         = data.aws_ami.al2023.id
+  instance_type               = "t3.micro"
+  subnet_id                   = data.aws_subnet.bawaan.id
+  associate_public_ip_address = false
+  user_data                   = local.cloud_init
+  user_data_replace_on_change = true
+
+  tags = {
+    Name  = "${local.awalan}-pembangun"
+    peran = "pembangun"
+    versi = var.versi
+  }
+}
+
+resource "time_sleep" "tunggu_cloud_init" {
+  create_duration = var.tunggu_cloud_init
+  triggers = {
+    pembangun_id = aws_instance.pembangun.id
+  }
+}
+
+resource "aws_ami_from_instance" "api" {
+  name               = "${local.awalan}-api-${var.versi}"
+  source_instance_id = aws_instance.pembangun.id
+  depends_on         = [time_sleep.tunggu_cloud_init]
+
+  tags = {
+    Name  = "${local.awalan}-api-${var.versi}"
+    peran = "api"
+    versi = var.versi
+  }
+}
+
+resource "aws_security_group" "api" {
+  name        = "${local.awalan}-api"
+  description = "HTTP API M02 dari IP praktikan"
+  vpc_id      = data.aws_vpc.bawaan.id
+
+  tags = {
+    Name  = "${local.awalan}-api"
+    peran = "api"
+  }
+}
+
+resource "aws_vpc_security_group_ingress_rule" "http_saya" {
+  security_group_id = aws_security_group.api.id
+  cidr_ipv4         = var.cidr_saya
+  from_port         = 80
+  ip_protocol       = "tcp"
+  to_port           = 80
+}
+
+resource "aws_instance" "api" {
+  ami                         = aws_ami_from_instance.api.id
+  instance_type               = "t3.micro"
+  subnet_id                   = data.aws_subnet.bawaan.id
+  associate_public_ip_address = true
+  vpc_security_group_ids      = [aws_security_group.api.id]
+
+  tags = {
+    Name  = "${local.awalan}-api"
+    peran = "api"
+    versi = var.versi
+  }
+}
+
+resource "aws_instance" "goreng" {
+  count                       = var.bandingkan_goreng ? 1 : 0
+  ami                         = data.aws_ami.al2023.id
+  instance_type               = "t3.micro"
+  subnet_id                   = data.aws_subnet.bawaan.id
+  associate_public_ip_address = true
+  vpc_security_group_ids      = [aws_security_group.api.id]
+  user_data                   = local.cloud_init
+  user_data_replace_on_change = true
+
+  tags = {
+    Name  = "${local.awalan}-goreng"
+    peran = "goreng"
+    versi = "2.1.0"
+  }
+}
