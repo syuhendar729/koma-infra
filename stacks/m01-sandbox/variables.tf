@@ -22,5 +22,45 @@ variable "region" {
   description = "Region proyek AWS (Indonesia: ap-southeast-2)"
 }
 
-# TODO Bagian C: tambahkan variabel `layanan` (map(object({ peran, ukuran, os })))
-# beserta validasinya. Lihat naskah Modul 01, C.2.
+variable "layanan" {
+  type = map(object({
+    peran  = string
+    ukuran = string
+    os     = string
+  }))
+  description = "Katalog layanan kasus; ukuran memakai preset praktikum."
+  default = {
+    portal-pasien = {
+      peran  = "web"
+      ukuran = "t3.micro"
+      os     = "al2023"
+    }
+    api-rme = {
+      peran  = "api"
+      ukuran = "t3.small"
+      os     = "al2023"
+    }
+    worker-lab = {
+      peran  = "worker"
+      ukuran = "t3.micro"
+      os     = "al2023"
+    }
+  }
+  validation {
+    condition     = length(var.layanan) >= 2 && length(var.layanan) <= 3
+    error_message = "Katalog layanan harus berisi dua atau tiga entri."
+  }
+  validation {
+    condition     = length(distinct([for layanan in values(var.layanan) : layanan.peran])) >= 2
+    error_message = "Katalog layanan harus memiliki sekurangnya dua peran berbeda."
+  }
+  validation {
+    condition = alltrue([
+      for k, layanan in var.layanan :
+      can(regex("^[a-z0-9][a-z0-9-]*$", k)) &&
+      contains(["t3.micro", "t3.small"], layanan.ukuran) &&
+      layanan.os == "al2023"
+    ])
+    error_message = "Kunci harus kebab-case; ukuran harus t3.micro/t3.small; os harus al2023."
+  }
+}

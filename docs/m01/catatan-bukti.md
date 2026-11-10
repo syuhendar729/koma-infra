@@ -1,76 +1,70 @@
 # Modul 01 — Catatan Bukti
 
-Isi berkas ini segera setelah setiap langkah penting, lalu commit bersama `bukti/bukti-m01.json`.
-Waktu ditulis dalam WIB. ID instance disalin dari terminal (`i-0…`); jangan menulis nomor akun AWS.
-
 | Hal | Isi |
 |---|---|
-| Nama | |
-| NIM | |
-| Kelompok | `k0_` |
-| Kasus | |
+| Nama | Syuhada Rantisi |
+| NIM | `122140092` |
+| Kelompok | `k01` |
+| Kasus | Klinik Sehat Lampung |
 
 ## Log langkah
 
 | Langkah | Waktu (WIB) | Perintah | Hasil singkat |
 |---|---|---|---|
-| A.1 Konsol | | (konsol EC2) | |
-| A.2 CLI dua kali | | `aws ec2 run-instances …` | |
-| A.3 Cek + bongkar | | `koma cek m01`, `aws ec2 terminate-instances …` | |
-| B.1 Anggaran | | `tofu apply m00.tfplan` | |
-| B.4 Apply pertama | | `tofu apply m01.tfplan` | |
-| B.5 Potret 2 | | `koma cek m01` | |
-| C.1 Plan kedua | | `tofu plan -detailed-exitcode` | |
-| C.3 Refaktor | | `tofu apply m01.tfplan` | |
-| C.4 Potret 3 | | `koma cek m01` | |
-| D.1 Destroy + apply | | `tofu destroy`, `tofu apply` | |
-| D.1 Potret 4 | | `koma cek m01` | |
-| Latihan L.4 (potret 5) | | `tofu apply`, `koma cek m01` | |
-| E.1 Destroy + potret 6 | | `tofu destroy`, `koma cek m01`, `koma sisa` | |
-| Tugas: katalog kasus | | `tofu apply`, `koma cek m01` | |
-| Tugas: destroy akhir | | `tofu destroy`, `koma cek m01` | |
+| B.1 Anggaran | 2026-11-10 17:00 | `tofu apply m00.tfplan` | Budget `koma-122140092-anggaran`, batas USD 50, berhasil dibuat. |
+| Tugas: plan katalog | 2026-11-10 17:22 | `tofu plan -out=m01.tfplan` | Katalog tiga layanan; perubahan create. |
+| Tugas: apply katalog | 2026-11-10 17:22 | `tofu apply m01.tfplan` | Tiga instance katalog berjalan tanpa IP publik. |
+| Tugas: potret aktif | 2026-11-10 17:22 | `koma cek m01` | Potret 10; `tugas_lulus` belum final karena stack masih aktif. |
+| C.1 Plan kedua | 2026-11-10 17:24 | `tofu plan -detailed-exitcode` | Exit code `0`; tidak ada perubahan. |
+| Tugas: destroy akhir | 2026-11-10 17:25 | `tofu destroy` | Tiga instance dan network interface katalog dihancurkan. |
+| Tugas: potret bersih | 2026-11-10 17:26 | `koma cek m01` | Potret 12 kosong; `tugas_lulus: true`. |
+| Tugas: sisa | 2026-11-10 17:26 | `koma sisa` | Tidak ada instance tanpa tag `managed-by`; resource terminated lama masih tampil karena retensi AWS. |
 
 ## Catatan Bagian A
 
-- Waktu konsol (klik pertama sampai `Running`): … menit … detik; jumlah isian yang disentuh: …
-- Waktu CLI (Enter sampai `running`): … detik
-- ID instance: `coba-konsol` …; dua `coba-cli` … dan …
-- Keputusan yang tidak tercatat di mana pun selain ingatan dan riwayat terminal saya:
-  - …
-  - …
-- Semua instance Bagian A sudah di-terminate (bukti: `describe-instances` kosong; `tanpa_instance_liar` lulus pada potret …): ya / belum
+- Region: `ap-southeast-2` (Sydney), sesuai konfigurasi akun praktikum.
+- Instance manual yang teridentifikasi dan sudah dihentikan:
+  - `coba-konsol`: `i-0264e7940fff8f3da`
+  - `coba-cli`: `i-0418f5cfcc1bc1cac`
+- ID `coba-cli` kedua, waktu klik konsol, dan durasi CLI tidak tersedia pada catatan lokal yang tersisa; tidak diada-adakan.
+- Semua instance manual Bagian A sudah diminta terminate dan tidak lagi berstatus `running`.
 
 ## Catatan Bagian D
 
-- Plan kedua (C.1): exit code = 
-- ID sebelum destroy: `web` …, `api` …
-- ID sesudah apply ulang: `web` …, `api` …
-- Waktu destroy: … ; waktu apply ulang: …
-- Potret yang meluluskan `reproducible`: potret … dan potret …
+- Plan kedua (C.1): exit code = `0`.
+- Potret aktif katalog akhir (potret 10):
+  - `portal-pasien`: `i-019ef2e67053d029d`
+  - `api-rme`: `i-0298c99ed6869a2d1`
+  - `worker-lab`: `i-0e58f9a253c27c9cc`
+- Pasangan ID untuk bukti reproducible:
+  - Potret 3: `portal-pasien` `i-0d8f34b8d85663f57`, `api-rme` `i-0e69e76a641f6dc6f`
+  - Potret 10: `portal-pasien` `i-019ef2e67053d029d`, `api-rme` `i-0298c99ed6869a2d1`
+- Potret yang meluluskan `reproducible`: potret 3 dan potret 10.
 
 ### Model layanan
 
-| Komponen | IaaS / PaaS / SaaS / bukan model layanan | Alasan (lapisan yang saya sentuh dan yang tidak) |
+| Komponen | IaaS / PaaS / SaaS / bukan model layanan | Alasan |
 |---|---|---|
-| Instance EC2 | | |
-| AWS Budgets | | |
-| Repo GitHub | | |
-| Workbench (panel Tugas) | | |
-| `koma cek` | | |
+| Instance EC2 | IaaS | Saya memilih image, tipe, jaringan, metadata, dan lifecycle instance. |
+| AWS Budgets | PaaS | AWS menyediakan layanan terkelola untuk budget dan notifikasi biaya tanpa mengelola servernya. |
+| Repo GitHub | SaaS | Repo dipakai melalui layanan aplikasi GitHub; server GitHub tidak saya kelola. |
+| Workbench (panel Tugas) | SaaS | Pengumpulan dan penilaian dilakukan melalui aplikasi layanan yang sudah disediakan. |
+| `koma cek` | Bukan model layanan cloud | Ini alat CLI lokal untuk memeriksa bukti terhadap akun dan repo. |
 
 ### Karakteristik cloud yang dialami
 
-| Karakteristik ([S] hlm. 40–45) | Dialami / dibatasi / tidak | Bukti hari ini (perintah, keluaran, atau angka) |
+| Karakteristik ([Surianarayanan & Chelliah] hlm. 40–45) | Dialami / dibatasi / tidak | Bukti |
 |---|---|---|
-| On-demand provisioning | | |
-| Self-service | | |
-| Resource pooling, multi-tenancy | | |
-| Rapid elasticity | | |
-| Measured service | | |
-| Broad network access | | |
+| On-demand provisioning | Dialami | Instance dibuat dengan OpenTofu dan API EC2, lalu dihancurkan dengan `tofu destroy`. |
+| Self-service | Dialami | Seluruh apply, plan, cek, dan destroy dijalankan dari akun sendiri. |
+| Resource pooling, multi-tenancy | Dialami | Instance memakai resource AWS bersama; detail tenant lain tidak terlihat. |
+| Rapid elasticity | Dialami dengan batas Free plan | Tiga layanan dapat dibuat dan dihentikan cepat, tetapi tipe dan kuota dibatasi. |
+| Measured service | Dialami | Resource memiliki ID, tipe, status, tag, dan budget USD 50. |
+| Broad network access | Dialami dengan pembatasan jaringan | Console, CLI, API, dan OpenTofu dapat digunakan; instance katalog sengaja tanpa IP publik. |
 
 ## Potret Tugas
 
-- Katalog kasus (`default` di `variables.tf`): kunci … peran … ukuran …
-- Potret aktif katalog kasus: nomor …, waktu …
-- Potret bersih terakhir: nomor …, waktu …; `tugas_lulus`: …
+- Katalog kasus (`default` di `variables.tf`): `portal-pasien`/web/`t3.micro`, `api-rme`/api/`t3.small`, `worker-lab`/worker/`t3.micro`.
+- Potret aktif katalog kasus: potret 10, 2026-11-10 17:22 WIB.
+- Potret bersih terakhir: potret 12, 2026-11-10 17:26 WIB.
+- `tugas_lulus`: `true`; `latihan_lulus`: `true`.
