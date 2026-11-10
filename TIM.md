@@ -14,10 +14,10 @@ setiap anggota.
 
 | NIM | Nama | Repo GitHub `koma-infra` |
 |---|---|---|
-| 122140092 | Syuhada Rantisi | `koma-infra` |
-| | | |
-| | | |
-| | | |
+| 122140092 | Syuhada Rantisi | `https://github.com/syuhendar729/koma-infra` |
+| 122450066 | Cintya Bella | `https://github.com/cintyabella28/koma-infra` |
+| 123450034 | Kharisma Mustika |`https://github.com/kharismamustika/koma-infra` |
+| 123450039 | Feby Angelina | `https://github.com/FebyAngelins/koma-infra` |
 
 ## Peninjau per modul
 
