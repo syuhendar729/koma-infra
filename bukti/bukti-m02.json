@@ -6,58 +6,58 @@
   "region": "ap-southeast-2",
   "akun_sidik": "ee8706ce9017317b",
   "modul": "m02",
-  "dibuat": "2026-11-10T12:04:56Z",
+  "dibuat": "2026-11-11T09:42:14Z",
   "sumber": "lokal",
   "hasil": [
     {
       "id": "instance_ada",
       "lulus": true,
-      "pesan": "dari potret aktif 2026-11-10T12:02:06Z; kini: 0 instance peran=api bertag modul=m02"
+      "pesan": "dari potret aktif 2026-11-11T09:40:32Z; kini: 0 instance peran=api bertag modul=m02"
     },
     {
       "id": "dikelola_kode",
       "lulus": true,
-      "pesan": "dari potret aktif 2026-11-10T12:02:06Z; kini: semua instance m02 bertag managed-by=opentofu"
+      "pesan": "dari potret aktif 2026-11-11T09:40:32Z; kini: semua instance m02 bertag managed-by=opentofu"
     },
     {
       "id": "tag_pemilik",
       "lulus": true,
-      "pesan": "dari potret aktif 2026-11-10T12:02:06Z; kini: tag nim=122140092 dan kelompok=k01"
+      "pesan": "dari potret aktif 2026-11-11T09:40:32Z; kini: tag nim=122140092 dan kelompok=k01"
     },
     {
       "id": "image_terbit",
       "lulus": true,
-      "pesan": "dari potret aktif 2026-11-10T12:02:06Z; kini: AMI milik sendiri: belum ada"
+      "pesan": "dari potret aktif 2026-11-11T09:40:32Z; kini: AMI milik sendiri: belum ada"
     },
     {
       "id": "api_dari_image",
       "lulus": true,
-      "pesan": "dari potret aktif 2026-11-10T12:02:06Z; kini: instance api diluncurkan dari AMI m02 milik sendiri"
+      "pesan": "dari potret aktif 2026-11-11T09:40:32Z; kini: instance api diluncurkan dari AMI m02 milik sendiri"
     },
     {
       "id": "api_sehat",
       "lulus": true,
-      "pesan": "dari potret aktif 2026-11-10T12:02:06Z; kini: belum ada instance api"
+      "pesan": "dari potret aktif 2026-11-11T09:40:32Z; kini: belum ada instance api"
     },
     {
       "id": "pembangun_dari_publik",
       "lulus": true,
-      "pesan": "dari potret aktif 2026-11-10T12:02:06Z; kini: instance pembangun memakai AMI publik (Amazon Linux 2023) + cloud-init"
+      "pesan": "dari potret aktif 2026-11-11T09:40:32Z; kini: instance pembangun memakai AMI publik (Amazon Linux 2023) + cloud-init"
     },
     {
       "id": "versi_cocok",
       "lulus": true,
-      "pesan": "dari potret aktif 2026-11-10T12:02:06Z; kini: versi dari /versi sama dengan tag versi instance api"
+      "pesan": "dari potret aktif 2026-11-11T09:40:32Z; kini: versi dari /versi sama dengan tag versi instance api"
     },
     {
       "id": "sg_terbatas",
       "lulus": true,
-      "pesan": "dari potret aktif 2026-11-10T12:02:06Z; kini: belum ada instance api"
+      "pesan": "dari potret aktif 2026-11-11T09:40:32Z; kini: belum ada instance api"
     },
     {
       "id": "nama_konvensi",
       "lulus": true,
-      "pesan": "dari potret aktif 2026-11-10T12:02:06Z; kini: Name instance dan nama AMI diawali koma-122140092-m02-"
+      "pesan": "dari potret aktif 2026-11-11T09:40:32Z; kini: Name instance dan nama AMI diawali koma-122140092-m02-"
     },
     {
       "id": "tanpa_instance_liar",
@@ -434,6 +434,61 @@
     },
     {
       "waktu": "2026-11-10T12:04:56Z",
+      "aktif": false,
+      "instance": {},
+      "image": [],
+      "api": null,
+      "yatim": 0,
+      "cek": {
+        "instance_ada": false,
+        "dikelola_kode": false,
+        "tag_pemilik": false,
+        "image_terbit": false,
+        "api_dari_image": false,
+        "api_sehat": false,
+        "pembangun_dari_publik": false,
+        "versi_cocok": false,
+        "sg_terbatas": false,
+        "nama_konvensi": false
+      }
+    },
+    {
+      "waktu": "2026-11-11T09:40:32Z",
+      "aktif": true,
+      "instance": {
+        "koma-122140092-m02-api": {
+          "id": "i-021946d3e2f889583",
+          "sidik": "78750e287e8b0d51ac23dda4684e557742660cebf79ecb51e8964dfdc762b067"
+        },
+        "koma-122140092-m02-pembangun": {
+          "id": "i-0506132aa60dc0fba",
+          "sidik": "850adc47a27e8fd4d6b1c484a3f24a8ab85f51db3012260b4c6cbdc8474468f8"
+        }
+      },
+      "image": [
+        "koma-122140092-m02-api-2.2.0"
+      ],
+      "api": {
+        "id": "i-021946d3e2f889583",
+        "versi": "2.2.0",
+        "versi_http": "2.2.0"
+      },
+      "yatim": 0,
+      "cek": {
+        "instance_ada": true,
+        "dikelola_kode": true,
+        "tag_pemilik": true,
+        "image_terbit": true,
+        "api_dari_image": true,
+        "api_sehat": true,
+        "pembangun_dari_publik": true,
+        "versi_cocok": true,
+        "sg_terbatas": true,
+        "nama_konvensi": true
+      }
+    },
+    {
+      "waktu": "2026-11-11T09:42:14Z",
       "aktif": false,
       "instance": {},
       "image": [],

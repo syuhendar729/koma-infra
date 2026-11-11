@@ -27,7 +27,7 @@ Setiap modul, pemilik repo membuka *pull request* dan meminta satu anggota lain 
 | Modul | Peninjau PR saya (NIM) | Saya meninjau PR milik (NIM) |
 |---|---|---|
 | m01 | `<isi NIM peninjau PR>` | |
-| m02 | | |
+| m02 | `122450066` | |
 | m03 | | |
 | m04 | | |
 | m05 | | |

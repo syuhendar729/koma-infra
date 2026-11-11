@@ -29,6 +29,16 @@ variable "versi" {
   }
 }
 
+variable "ukuran_api" {
+  type        = string
+  default     = "t3.micro"
+  description = "Ukuran server API; rilis KSL memakai t3.small."
+  validation {
+    condition     = contains(["t3.micro", "t3.small"], var.ukuran_api)
+    error_message = "Ukuran API harus t3.micro atau t3.small."
+  }
+}
+
 variable "cidr_saya" {
   type        = string
   description = "IP publik komputer praktikan sebagai /32 (keluaran `koma ip`)"

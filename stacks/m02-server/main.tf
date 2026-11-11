@@ -86,7 +86,7 @@ resource "aws_vpc_security_group_ingress_rule" "http_saya" {
 
 resource "aws_instance" "api" {
   ami                         = aws_ami_from_instance.api.id
-  instance_type               = "t3.micro"
+  instance_type               = var.ukuran_api
   subnet_id                   = data.aws_subnet.bawaan.id
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.api.id]

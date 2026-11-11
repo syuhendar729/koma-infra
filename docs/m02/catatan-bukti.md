@@ -6,7 +6,7 @@
 | NIM | `122140092` |
 | Kelompok | `k01` |
 | Kasus | Klinik Sehat Lampung |
-| Peninjau PR `m02` (NIM) | `<isi NIM peninjau PR>` |
+| Peninjau PR `m02` (NIM) | `122450066` |
 
 ## Dugaan pre-lab
 
@@ -24,6 +24,8 @@
 | 8 | D.4 | api 2.1.0, ID baru | 19:00:35 | `ami-093bea1bfbc74a25a`; `/versi` 2.1.0; API sehat. |
 | 10 | Latihan 2.1 | api 2.1.0 + server goreng | 19:02:06 | API dan goreng hidup; `/versi` goreng 2.1.0 dengan host berbeda; Latihan lulus. |
 | 11 | E.2.2 | bersih setelah `tofu destroy` | 19:04:56 | Potret kosong; `latihan_lulus: true`, `tugas_lulus: true`. |
+| 12 | Rilis kasus 2.2.0 | API `t3.small` dari AMI rilis | 2026-11-11 16:40 WIB | Potret aktif; semua cek selain `bersih_akhir` lulus. |
+| 13 | Pekerjaan Wajib 6 | bersih setelah destroy rilis | 2026-11-11 16:42 WIB | `tugas_lulus: true`, potret terakhir kosong. |
 
 ## Catatan Bagian A
 
@@ -59,12 +61,12 @@ menjawab `/health` 200; jeda ini tidak mengukur service melalui IP publik pemban
 
 | Hal | Isi |
 |---|---|
-| `url_api` 2.1.0 | `http://54.206.1.192` |
-| ID instance api 2.1.0 | `i-0bd3e3e6180f189f1` |
-| `aws_instance.api` Creation complete | 18 detik |
-| Waktu siap | 0,5 detik setelah `Creation complete` |
-| Jawaban `/versi` | `{"versi":"2.1.0","peran":"api","host":"ip-172-31-9-225.ap-southeast-2.compute.internal"}` |
-| Aturan masuk | TCP/80 dari `103.211.143.250/32` |
+| `url_api` 2.2.0 | `http://15.134.134.186` |
+| ID instance api 2.2.0 | `i-021946d3e2f889583` |
+| `aws_instance.api` Creation complete | 16 detik |
+| Waktu siap | 0,6 detik setelah `Creation complete` |
+| Jawaban `/versi` | `{"versi":"2.2.0","peran":"api","host":"ip-172-31-3-241.ap-southeast-2.compute.internal"}` |
+| Aturan masuk | TCP/80 dari `182.253.63.6/32` |
 | Isi `keluar` | `IpPermissionsEgress: []` |
 
 ## Catatan Bagian D
@@ -97,12 +99,12 @@ diletakkan di belakang mekanisme endpoint stabil pada sistem produksi.
 
 | Hal | Isi |
 |---|---|
-| Versi rilis kasus | `2.1.0`, karena perubahan versi membuktikan immutable replacement dan endpoint `/versi`. |
-| Ukuran server api | `t3.micro`, cukup untuk lab dan endpoint API sederhana. |
+| Versi rilis kasus | `2.2.0`, lebih tinggi dari latihan `2.1.0`; dipilih untuk rilis immutable KSL. |
+| Ukuran server api | `t3.small`, karena C3 mencapai 420 req/detik dan E4–E5 menetapkan SLA 99,95% serta p95 <500 ms. |
 | ID AMI publik | `ami-03988d3be5ed1bfdb` |
-| Waktu panggang | sekitar 5m30s setelah pembangun selesai |
-| Waktu siap | 0,5 detik setelah `Creation complete` |
-| ID instance api rilis | `i-0bd3e3e6180f189f1` |
-| Jawaban `/versi` | Versi `2.1.0`, host `ip-172-31-9-225.ap-southeast-2.compute.internal` |
-| Tautan PR | Belum dibuat |
-| NIM/tanggal persetujuan | Belum ada |
+| Waktu panggang | sekitar 5m28s setelah pembangun selesai (`16s + 120s + 3m12s`) |
+| Waktu siap | 0,6 detik setelah `Creation complete` |
+| ID instance api rilis | `i-021946d3e2f889583` |
+| Jawaban `/versi` | Versi `2.2.0`, host `ip-172-31-3-241.ap-southeast-2.compute.internal` |
+| Tautan PR | Belum dibuat; perlu dibuka setelah commit dan push |
+| NIM/tanggal persetujuan | `122450066`; tanggal persetujuan belum ada |
