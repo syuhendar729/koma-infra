@@ -1,1 +1,10 @@
-# TODO C.3: url_lb ("http://<DNS ALB>") dan ip_privat (map server -> IP privat).
+output "url_lb" {
+  value = "http://${aws_lb.app.dns_name}"
+}
+
+output "ip_privat" {
+  value = merge(
+    { for k, v in aws_instance.web : k => v.private_ip },
+    { db = aws_instance.db.private_ip }
+  )
+}

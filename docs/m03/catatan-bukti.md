@@ -2,11 +2,11 @@
 
 | Hal | Isi |
 |---|---|
-| Nama | |
-| NIM | |
-| Kelompok | `k0_` |
-| Kasus | |
-| Peninjau PR `m03` (NIM) | |
+| Nama | Syuhada Rantisi |
+| NIM | 122140092 |
+| Kelompok | `k01` |
+| Kasus | Klinik Sehat Lampung |
+| Peninjau PR `m03` (NIM) | 122450066 |
 
 Isi berkas ini sambil mengerjakan prosedur. Angka, ID, dan alamat disalin dari keluaran perintah Anda sendiri; contoh di naskah hanya gambaran. Jangan menulis nomor akun AWS, token verifier, atau ARN yang memuat nomor akun. Berkas ini ikut di-commit dan masuk `koma-module-03.zip`.
 
@@ -15,10 +15,10 @@ Isi berkas ini sambil mengerjakan prosedur. Angka, ID, dan alamat disalin dari k
 | Hal | Isi |
 |---|---|
 | `role_arn` stack `m00-verifier` (ganti 12 digit akun dengan `<akun>`) | `arn:aws:iam::<akun>:role/koma-verifier-ro` |
-| `koma info` menampilkan URL verifier (ya/belum) | |
+| `koma info` menampilkan URL verifier (ya/belum) | belum; URL dan token belum diberikan |
 | Kuota vCPU (`L-1216C47A`) | |
-| `jumlah_web` yang dipakai di kelas dan alasannya | |
-| `cidr_saya` (keluaran `koma ip`) | |
+| `jumlah_web` yang dipakai di kelas dan alasannya | 2, satu per AZ privat |
+| `cidr_saya` (keluaran `koma ip`) | 182.253.63.6/32 |
 
 ## Langkah dan bukti
 
@@ -28,9 +28,9 @@ Satu baris per `koma cek m03`. Potret terakhir sebelum mengumpulkan harus potret
 |---|---|---|---|---|
 | 1 | C.5.2 | VPC + ALB pertama + server | | |
 | 2 | D.3 | VPC sama + ALB baru | | |
-| 3 | Latihan 3.1 butir 3 | dua aturan salah terpasang | | |
-| 4 | Latihan 3.1 butir 5 | aturan salah dihapus | | |
-| 5 | E.2 | bersih setelah destroy app dan network | | |
+| 3 | Latihan 3.1 butir 3 | dua aturan salah terpasang | 2026-11-11 17:02 WIB | verifier belum dikonfigurasi |
+| 4 | Latihan 3.1 butir 5 | aturan salah dihapus | 2026-11-11 17:03 WIB | `tofu plan`: No changes |
+| 5 | E.2 | bersih setelah destroy app dan network | 2026-11-11 17:04 WIB | destroy selesai; cek verifier tertunda |
 | 6 | Tugas Langkah 3 | nilai kasus (`cidr_vpc`, `jumlah_web`) | | |
 | 7 | Tugas Langkah 4 | bersih lagi | | |
 
@@ -129,7 +129,7 @@ Rencana alamat organisasi (tandai "asumsi" bila tidak tertulis di berkas kasus; 
 | | | | |
 | | | | |
 | | | | |
-| VPC anggota: | | | |
+| VPC anggota: | `10.31.0.0/16` | asumsi latihan; dua AZ | |
 
 Pemetaan komponen E1:
 
@@ -142,11 +142,11 @@ Pemetaan komponen E1:
 
 | Hal | Isi |
 |---|---|
-| `cidr_vpc` di `stacks/m03-network/kasus.tfvars` (rujuk `K-03-…`) | |
-| `jumlah_web` di `stacks/m03-app/kasus.tfvars` (rujuk `K-03-…`) | |
+| `cidr_vpc` di `stacks/m03-network/kasus.tfvars` (rujuk `K-03-…`) | `10.31.0.0/16` (K-03-001) |
+| `jumlah_web` di `stacks/m03-app/kasus.tfvars` (rujuk `K-03-…`) | `2` (K-03-003) |
 | `tofu output` stack jaringan dengan nilai kasus | |
 | `koma sehat` ke ALB kasus (detik) | |
 | Jawaban `/versi` | |
 | Hasil potret 6 dan potret 7 | |
-| Tautan *pull request* `modul-03` → `main` | |
-| NIM peninjau dan tanggal persetujuan | |
+| Tautan *pull request* `modul-03` → `main` | belum dibuat |
+| NIM peninjau dan tanggal persetujuan | 122450066; belum disetujui |

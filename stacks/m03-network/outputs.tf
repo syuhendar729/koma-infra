@@ -1,6 +1,15 @@
-# Kontrak antarstack: hanya nilai ini yang boleh dibaca stack m03-app.
-# TODO A.5: tulis empat output berikut setelah resource A.1–A.4 ada:
-#   vpc_id             = id VPC
-#   cidr_vpc           = blok CIDR VPC
-#   subnet_publik_ids  = daftar id subnet publik, terurut menurut kunci AZ (a, b)
-#   subnet_privat_ids  = daftar id subnet privat, terurut menurut kunci AZ (a, b)
+output "vpc_id" {
+  value = aws_vpc.utama.id
+}
+
+output "cidr_vpc" {
+  value = var.cidr_vpc
+}
+
+output "subnet_publik_ids" {
+  value = [for k in sort(keys(aws_subnet.publik)) : aws_subnet.publik[k].id]
+}
+
+output "subnet_privat_ids" {
+  value = [for k in sort(keys(aws_subnet.privat)) : aws_subnet.privat[k].id]
+}

@@ -28,7 +28,7 @@ Setiap modul, pemilik repo membuka *pull request* dan meminta satu anggota lain 
 |---|---|---|
 | m01 | `<isi NIM peninjau PR>` | |
 | m02 | `122450066` | |
-| m03 | | |
+| m03 | `122450066` | |
 | m04 | | |
 | m05 | | |
 | m06 | | |
